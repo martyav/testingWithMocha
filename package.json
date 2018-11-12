@@ -1,0 +1,11 @@
+{
+  "name": "testingwithmocha",
+  "version": "1.0.0",
+  "description": "testing javascript DSA problems",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "martyav",
+  "license": "ISC"
+}
