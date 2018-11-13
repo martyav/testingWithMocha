@@ -32,11 +32,37 @@ warmUp.sumDouble = function(firstNum, secondNum) {
 
   let returnValue = firstNum + secondNum;
 
-  if (firstNum === secondNum) {
-    returnValue *= 2;
-  }
+  if (firstNum === secondNum) returnValue *= 2;
 
   return returnValue;
+}
+
+warmUp.diff21 = function(number) {
+  if (Number.isNaN(number) || typeof number !== 'number') throw new TypeError('Argument must be a number value');
+
+  let returnValue = Math.abs(number - 21);
+
+  if (number > 21) returnValue *= 2;
+
+  return returnValue;
+}
+
+warmUp.parrotTrouble = function(isTalking, hour) {
+  if (typeof isTalking !== 'boolean') throw TypeError('Argument must be Boolean');
+  if (Number.isNaN(hour) || typeof hour !== 'number') throw new TypeError('Argument must be a number value');
+  if (hour < 0 || hour > 23) throw new RangeError('Hour must be between 0 and 23');
+
+  return isTalking && (hour < 7 || hour > 20);
+}
+
+warmUp.makes10 = function(firstNum, secondNum) {
+  if (Number.isNaN(firstNum) || Number.isNaN(secondNum) || typeof firstNum !== 'number' || typeof secondNum !== 'number') throw new TypeError('Argument must be a number value');
+
+  let is10 = (num) => num === 10;
+
+  let sum = firstNum + secondNum;
+
+  return is10(firstNum) || is10(secondNum) || is10(sum);
 }
 
 module.exports = warmUp;
