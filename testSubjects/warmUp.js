@@ -92,8 +92,47 @@ warmUp.notString = function(text) {
 
   let returnString = text;
 
-  if (text.slice(0, 4) !== 'not ') returnString = 'not '.concat(returnString).trim();
+  if (!text.startsWith('not ')) returnString = 'not '.concat(returnString).trim();
   
+  return returnString;
+}
+
+warmUp.missingChar = function(text, index) {
+  if (typeof text !== 'string') throw TypeError('Argument must be String');
+  if (Number.isNaN(index) || typeof index !== 'number') throw new TypeError('Argument must be a number value');
+  if (index < 0 || index >= text.length) throw new RangeError('Index must be greater than or equal to 0, and less than the length of the string');
+
+  let returnString = '';
+
+  if (text.length < 2) returnString = text.slice(0, index);
+  else returnString = text.slice(0, index) + text.slice(index + 1, text.length);
+  
+  return returnString; 
+}
+
+warmUp.frontBack = function(text) {
+  if (typeof text !== 'string') throw TypeError('Argument must be String');
+  if (text.length === 0) throw RangeError('Argument must not be 0 length');
+
+  const first = text[0];
+  const last = text[text.length - 1];
+  let returnString = first;
+
+  if (text.length > 1) returnString = last.concat(text.slice(1, text.length - 1).concat(first));
+
+  return returnString;
+}
+
+warmUp.front3 = function(text) {
+  if (typeof text !== 'string') throw TypeError('Argument must be String');
+
+  let returnString = '';
+  let firstCharacters = text;
+
+  if (text.length > 2) firstCharacters = text.slice(0, 3);
+
+  returnString = firstCharacters.repeat(3);
+
   return returnString;
 }
 

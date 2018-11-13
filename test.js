@@ -3,7 +3,7 @@ let warmUp = require('./testSubjects/warmUp.js')
 
 let truthyValues = ['true', 'false', '', 'word', '1', '0', 1, 0, [], [1], {}, { 'true': false }, NaN, undefined, null];
 let notNumbers = [NaN, '0', '1', '0.00', '1.00', 'I am not a number!', [], [1], {}, { 1: 2 }, true, false, null, undefined];
-let notStrings = [NaN, null, undefined, true, false, 1, 0, [], ['Hi'], {}, {'One': '1'}]
+let notStrings = [NaN, null, undefined, true, false, 1, 0, [], ['Hi'], {}, { 'One': '1' }]
 
 describe('Warmup Problem Set', function () {
   describe('1) Fizz Buzz', function () {
@@ -225,28 +225,28 @@ describe('Warmup Problem Set', function () {
     });
   });
 
-  describe('8) Near Hundred', function() {
-    it('Should return true if argument is within 10 of 100', function() {
+  describe('8) Near Hundred', function () {
+    it('Should return true if argument is within 10 of 100', function () {
       assert.equal(true, warmUp.nearHundred(100));
       assert.equal(true, warmUp.nearHundred(110));
       assert.equal(true, warmUp.nearHundred(90));
       assert.equal(true, warmUp.nearHundred(104));
       assert.equal(true, warmUp.nearHundred(99));
     });
-    it('Should return true if argument is within 10 of 200', function() {
+    it('Should return true if argument is within 10 of 200', function () {
       assert.equal(true, warmUp.nearHundred(200));
       assert.equal(true, warmUp.nearHundred(210));
       assert.equal(true, warmUp.nearHundred(190));
       assert.equal(true, warmUp.nearHundred(204));
       assert.equal(true, warmUp.nearHundred(199));
     });
-    it('Should return false if argument is not within 10 of 100', function() {
+    it('Should return false if argument is not within 10 of 100', function () {
       assert.equal(false, warmUp.nearHundred(111));
       assert.equal(false, warmUp.nearHundred(89));
       assert.equal(false, warmUp.nearHundred(0));
       assert.equal(false, warmUp.nearHundred(-100));
     });
-    it('Should return false if argument is not within 10 of 200', function() {
+    it('Should return false if argument is not within 10 of 200', function () {
       assert.equal(false, warmUp.nearHundred(211));
       assert.equal(false, warmUp.nearHundred(189));
       assert.equal(false, warmUp.nearHundred(3000000));
@@ -261,35 +261,35 @@ describe('Warmup Problem Set', function () {
     });
   });
 
-  describe('9) Pos Neg', function() {
-    it('Should return true if one of the first arguments is positive and the other is negative, and the last argument is false', function() {
+  describe('9) Pos Neg', function () {
+    it('Should return true if one of the first arguments is positive and the other is negative, and the last argument is false', function () {
       assert.equal(true, warmUp.posNeg(-1, 1, false));
       assert.equal(true, warmUp.posNeg(1, -1, false));
     });
-    it('Should return true if the first two arguments are negative, and the last argument is true', function() {
+    it('Should return true if the first two arguments are negative, and the last argument is true', function () {
       assert.equal(true, warmUp.posNeg(-1, -1, true));
       assert.equal(true, warmUp.posNeg(-12, -1, true));
     });
-    it('Should return false if either of the first two arguments are positive, and the last argument is true', function() {
+    it('Should return false if either of the first two arguments are positive, and the last argument is true', function () {
       assert.equal(false, warmUp.posNeg(-1, 1, true));
       assert.equal(false, warmUp.posNeg(1, -1, true));
       assert.equal(false, warmUp.posNeg(1, 1, true));
     });
-    it('Should return false if the first two arguments are both negative or both positive, and the last argument is false', function() {
+    it('Should return false if the first two arguments are both negative or both positive, and the last argument is false', function () {
       assert.equal(false, warmUp.posNeg(-1, -1, false));
       assert.equal(false, warmUp.posNeg(1, 1, false));
     });
-    it('Should throw if either the first or second argument is 0', function() {
-      assert.throws(function() {
+    it('Should throw if either the first or second argument is 0', function () {
+      assert.throws(function () {
         warmUp.posNeg(-1, 0, false);
       }, RangeError);
-      assert.throws(function() {
+      assert.throws(function () {
         warmUp.posNeg(0, 1, false);
       }, RangeError);
-      assert.throws(function() {
+      assert.throws(function () {
         warmUp.posNeg(0, -1, true);
       }, RangeError);
-      assert.throws(function() {
+      assert.throws(function () {
         warmUp.posNeg(1, 0, true);
       }, RangeError);
     });
@@ -306,8 +306,8 @@ describe('Warmup Problem Set', function () {
     });
   });
 
-  describe('10) Not String', function() {
-    it('Should return a string that starts with the word not', function() {
+  describe('10) Not String', function () {
+    it('Should return a string that starts with the word not', function () {
       assert.equal('not bad', warmUp.notString('bad'));
       assert.equal('not bad', warmUp.notString('not bad'));
       assert.equal('not 1', warmUp.notString('1'));
@@ -320,10 +320,87 @@ describe('Warmup Problem Set', function () {
       assert.equal('not zzxasxsdcwefeffefr334f34fede', warmUp.notString('zzxasxsdcwefeffefr334f34fede'));
       assert.equal('not zzxasxsdcwefeffefr334f34fede', warmUp.notString('not zzxasxsdcwefeffefr334f34fede'));
     });
-    it('Should throw if argument is not of type String', function() {
+    it('Should throw if argument is not of type String', function () {
       for (value of notStrings) {
         assert.throws(function () {
           warmUp.notString(value);
+        }, TypeError);
+      }
+    });
+  });
+
+  describe('11) Missing Char', function () {
+    it('Should return a string composed of all the characters in the first argument, except the character at the index indicated in the second argument', function () {
+      assert.equal('hell', warmUp.missingChar('hello', 4));
+      assert.equal('ello', warmUp.missingChar('hello', 0));
+      assert.equal('helo', warmUp.missingChar('hello', 2));
+      assert.equal('', warmUp.missingChar('A', 0));
+      assert.equal('A', warmUp.missingChar('Ai', 1));
+      assert.equal('i', warmUp.missingChar('Ai', 0));
+      assert.equal('555555555', warmUp.missingChar('5555555555', 5));
+    });
+    it('Should throw if the second argument is outside the range of the length of the string in the first argument', function () {
+      assert.throws(function () {
+        warmUp.missingChar('', 1000);
+      }, RangeError);
+      assert.throws(function () {
+        warmUp.missingChar('', -1000)
+      }, RangeError);
+    });
+    it('Should throw if the first argument is not of type String, or the second is not a number', function () {
+      for (firstValue of notStrings) {
+        for (secondValue of notNumbers) {
+          assert.throws(function () {
+            warmUp.notString(firstValue, secondValue);
+          }, TypeError);
+        }
+      }
+    });
+  });
+  describe('11) Front Back', function() {
+    it('Should return a string with the first and last characters of the argument transposed', function() {
+      assert.equal('cba', warmUp.frontBack('abc'));
+      assert.equal('dello worlh', warmUp.frontBack('hello world'));
+      assert.equal('aH', warmUp.frontBack('Ha'));
+      assert.equal('I', warmUp.frontBack('I'));
+      assert.equal('666', warmUp.frontBack('666'));
+      assert.equal('   ', warmUp.frontBack('   '));
+      assert.equal('\t \n', warmUp.frontBack('\n \t'));
+    });
+    it('Should throw if passed the empty string', function() {
+      assert.throws(function() {
+        warmUp.frontBack('');
+      }, RangeError);
+    });
+    it('Should throw if argument is not of type String', function () {
+      for (value of notStrings) {
+        assert.throws(function () {
+          warmUp.frontBack(value);
+        }, TypeError);
+      }
+    });
+  });
+
+  describe('12) Front 3', function() {
+    it('Should return a string composed of the first 3 characters in the argument, repeated 3 times, if the length of the argument is 3 or greater', function() {
+      assert.equal('HooHooHoo', warmUp.front3('Hoot'));
+      assert.equal('HooHooHoo', warmUp.front3('Hoo'));
+      assert.equal('HooHooHoo', warmUp.front3('Hootie and the Blowfish'));
+      assert.equal('runrunrun', warmUp.front3('run away!'));
+      assert.equal('123123123', warmUp.front3('1234567890'));
+      assert.equal('         ', warmUp.front3('   '));
+    });
+    it('Should return a string composed of the argument, repeated 3 times, if the length of the argument is less than 3', function() {
+      assert.equal('HaHaHa', warmUp.front3('Ha'));
+      assert.equal('666', warmUp.front3('6'));
+      assert.equal('gogogo', warmUp.front3('go'));
+      assert.equal('   ', warmUp.front3(' '));
+      assert.equal('', warmUp.front3(''));
+    });
+    it('Should throw if argument is not of type String', function () {
+      for (value of notStrings) {
+        assert.throws(function () {
+          warmUp.front3(value);
         }, TypeError);
       }
     });
