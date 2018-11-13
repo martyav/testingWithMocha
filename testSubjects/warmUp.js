@@ -65,4 +65,36 @@ warmUp.makes10 = function(firstNum, secondNum) {
   return is10(firstNum) || is10(secondNum) || is10(sum);
 }
 
+warmUp.nearHundred = function(number) {
+  if (Number.isNaN(number) || typeof number !== 'number') throw new TypeError('Argument must be a number value');
+
+  let within10 = (num, closeTo) => Math.abs(num - closeTo) <= 10;
+
+  return within10(number, 100) || within10(number, 200);
+}
+
+warmUp.posNeg = function(firstNum, secondNum, isNegative) {
+  if (Number.isNaN(firstNum) || Number.isNaN(secondNum) || typeof firstNum !== 'number' || typeof secondNum !== 'number') throw new TypeError('Argument must be a number value');
+  if (typeof isNegative !== 'boolean') throw TypeError('Argument must be Boolean');
+  if (firstNum === 0 || secondNum === 0) throw RangeError('Argument must be positive or negative');
+
+  let lessThanZero = (num) => num < 0;
+  let returnValue;
+
+  if (isNegative) returnValue = lessThanZero(firstNum) && lessThanZero(secondNum);
+  else returnValue = (lessThanZero(firstNum) !== lessThanZero(secondNum));
+  
+  return returnValue
+}
+
+warmUp.notString = function(text) {
+  if (typeof text !== 'string') throw TypeError('Argument must be String');
+
+  let returnString = text;
+
+  if (text.slice(0, 4) !== 'not ') returnString = 'not '.concat(returnString).trim();
+  
+  return returnString;
+}
+
 module.exports = warmUp;
