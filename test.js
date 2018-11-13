@@ -30,7 +30,7 @@ describe('Warmup Problem Set', function () {
       assert.equal('FizzBuzz', warmUp.fizzBuzz(3375));
       assert.equal('FizzBuzz', warmUp.fizzBuzz(-15));
     });
-    it('Should return the original number if not a multiple of 3 and/or 5, and not 0', function () {
+    it('Should return the original number if not a multiple of 3 and/or 5', function () {
       assert.equal(17, warmUp.fizzBuzz(17));
       assert.equal(71, warmUp.fizzBuzz(71));
       assert.equal(202, warmUp.fizzBuzz(202));
@@ -70,16 +70,16 @@ describe('Warmup Problem Set', function () {
   });
 
   describe('3) Monkey Trouble', function () {
-    it('Should return true if both are smiling', function () {
+    it('Should return true if both are true', function () {
       assert.equal(true, warmUp.monkeyTrouble(true, true));
     });
-    it('Should return true if neither is smiling', function () {
+    it('Should return true if neither is true', function () {
       assert.equal(true, warmUp.monkeyTrouble(false, false));
     });
-    it('Should return false if A is smiling and B is not smiling', function () {
+    it('Should return false if A is true and B is false', function () {
       assert.equal(false, warmUp.monkeyTrouble(true, false));
     });
-    it('Should return false if A is not smiling and B is smiling', function () {
+    it('Should return false if A is false and B is true', function () {
       assert.equal(false, warmUp.monkeyTrouble(false, true));
     });
     it('Should throw if either argument is not of type Bool, regardless of truthiness', function () {
@@ -119,7 +119,7 @@ describe('Warmup Problem Set', function () {
   });
 
   describe('5) Diff 21', function () {
-    it('Should return the absolute difference between the argument and 21, if the value is below 21', function () {
+    it('Should return the absolute difference between the argument and 21, if the value is at or below 21', function () {
       assert.equal(0, warmUp.diff21(21));
       assert.equal(1, warmUp.diff21(20));
       assert.equal(20, warmUp.diff21(1));
@@ -168,7 +168,7 @@ describe('Warmup Problem Set', function () {
       assert.equal(false, warmUp.parrotTrouble(false, 12));
       assert.equal(false, warmUp.parrotTrouble(false, 20));
     });
-    it('Should throw if second argument is not a proper value representing an hour in military time', function () {
+    it('Should throw if second argument is not a proper value for an hour in military time', function () {
       assert.throws(function () {
         warmUp.parrotTrouble(true, -1);
       }, RangeError);
