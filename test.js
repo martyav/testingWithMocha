@@ -4,8 +4,9 @@ let warmUp = require('./testSubjects/warmUp.js')
 let truthyValues = ['true', 'false', '', 'word', '1', '0', 1, 0, [], [1], {}, { 'true': false }, NaN, undefined, null];
 let notNumbers = [NaN, '0', '1', '0.00', '1.00', 'I am not a number!', [], [1], {}, { 1: 2 }, true, false, null, undefined];
 let notStrings = [NaN, null, undefined, true, false, 1, 0, [], ['Hi'], {}, { 'One': '1' }]
+let notArrays = [NaN, null, undefined, true, false, 1, 1.00, '', 'Hi', {}, {1:1, 2:2, 3:3}];
 
-describe('Warmup Problem Set', function () {
+describe('warmUp Problem Set', function () {
   describe('1) Fizz Buzz', function () {
     it('Should return 0 if passed 0', function () {
       assert.equal(0, warmUp.fizzBuzz(0));
@@ -394,6 +395,8 @@ describe('Warmup Problem Set', function () {
       assert.equal('HaHaHa', warmUp.front3('Ha'));
       assert.equal('666', warmUp.front3('6'));
       assert.equal('gogogo', warmUp.front3('go'));
+      assert.equal('I I I ', warmUp.front3('I '));
+      assert.equal(' I I I', warmUp.front3(' I'));
       assert.equal('   ', warmUp.front3(' '));
       assert.equal('', warmUp.front3(''));
     });
@@ -401,6 +404,123 @@ describe('Warmup Problem Set', function () {
       for (value of notStrings) {
         assert.throws(function () {
           warmUp.front3(value);
+        }, TypeError);
+      }
+    });
+  });
+
+  describe('13) Del Del', function() {
+    it('Should return a string composed of the argument, minus any occurences of the substring del, and any extra whitespace surrounding the substring del', function() {
+      assert.equal('abcfg', warmUp.delDel('abcdelfg'));
+      assert.equal('Hello world.', warmUp.delDel('Hello del world.'));
+      assert.equal('', warmUp.delDel('del'));
+      assert.equal('', warmUp.delDel('deldeldel'));
+      assert.equal('', warmUp.delDel('del del del'));
+      assert.equal('', warmUp.delDel('deldel      del   del deldeldel del   del'));
+      assert.equal('empire', warmUp.delDel('del empire del'));
+      assert.equal('LIC', warmUp.delDel('del LIC   del'));
+      assert.equal('Del', warmUp.delDel('Del'));
+      assert.equal('DEL', warmUp.delDel('DEL'));
+      assert.equal('abc', warmUp.delDel('adelbdelcdel'));
+      assert.equal('ddeell', warmUp.delDel('ddedelell'));
+      assert.equal('', warmUp.delDel(''));
+      assert.equal(' ', warmUp.delDel(' '));
+      assert.equal('no substring', warmUp.delDel('no substring'));
+      assert.equal('nosubstring', warmUp.delDel('nosubstring'));
+    });
+    it('Should throw if argument is not of type String', function () {
+      for (value of notStrings) {
+        assert.throws(function () {
+          warmUp.delDel(value);
+        }, TypeError);
+      }
+    });
+  });
+
+  describe('14) Mix Start', function() {
+    it('Should return true if the argument starts with the substring *ix, where the * stands for any character', function() {
+      assert.equal(true, warmUp.mixStart('mix'));
+      assert.equal(true, warmUp.mixStart('Mix'));
+      assert.equal(true, warmUp.mixStart('MIX'));
+      assert.equal(true, warmUp.mixStart('pix'));
+      assert.equal(true, warmUp.mixStart('9ix'));
+      assert.equal(true, warmUp.mixStart('Дix'));
+      assert.equal(true, warmUp.mixStart('麻ix'));
+      assert.equal(true, warmUp.mixStart('😃ix'));
+      assert.equal(true, warmUp.mixStart(' ix'));
+      assert.equal(true, warmUp.mixStart('\bix'));
+      assert.equal(true, warmUp.mixStart('mixture'));
+      assert.equal(true, warmUp.mixStart('mix it up'));
+    });
+    it('Should return false if the argument does not start with the substring *ix, where the * stands for any character', function() {
+      assert.equal(false, warmUp.mixStart('mox'));
+      assert.equal(false, warmUp.mixStart('Mox'));
+      assert.equal(false, warmUp.mixStart('bux'));
+      assert.equal(false, warmUp.mixStart('23664287'));
+      assert.equal(false, warmUp.mixStart('ДaД'));
+      assert.equal(false, warmUp.mixStart('麻3p'));
+      assert.equal(false, warmUp.mixStart('😃ol'));
+      assert.equal(false, warmUp.mixStart(' kl'));
+      assert.equal(false, warmUp.mixStart('   mix'));
+      assert.equal(false, warmUp.mixStart('Unix'));
+      assert.equal(false, warmUp.mixStart('ipixel'));
+      assert.equal(false, warmUp.mixStart('\bap'));
+      assert.equal(false, warmUp.mixStart('mie'));
+      assert.equal(false, warmUp.mixStart('xxx'));
+      assert.equal(false, warmUp.mixStart(''));
+      assert.equal(false, warmUp.mixStart('nothing'));
+      assert.equal(false, warmUp.mixStart('not a thing'));
+    });
+    it('Should throw if argument is not of type String', function () {
+      for (value of notStrings) {
+        assert.throws(function () {
+          warmUp.mixStart(value);
+        }, TypeError);
+      }
+    });
+  });
+
+  describe('15) Int Max', function() {
+    it('Should return the largest integer in a non-empty array which contains at least one integer', function() {
+      assert.equal(100, warmUp.intMax([100]));
+      assert.equal(-100, warmUp.intMax([-100]));
+      assert.equal(0, warmUp.intMax([0]));
+      assert.equal(Number.MIN_SAFE_INTEGER, warmUp.intMax([Number.MIN_SAFE_INTEGER]));
+      assert.equal(10, warmUp.intMax([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+      assert.equal(10, warmUp.intMax([10, 9, 8, 7, 6, 5, 4, 3, 2, 1]));
+      assert.equal(Number.MAX_SAFE_INTEGER, warmUp.intMax([1, 4, 77, 9, 100, 82, -1, Number.MAX_SAFE_INTEGER, 20, 11]));
+      assert.equal(76, warmUp.intMax([11, 11, 11, 11, 11, 11, 11, 76, 11, 11, 11, 11, 11, 11, 11]));
+      assert.equal(11, warmUp.intMax([11, 11, 11, 11, 11, 11, 11, 11.2, 11, 11, 11, 11, 11, 11, 11]));
+      assert.equal(1, warmUp.intMax([1.0, 2.5, 11.54, -1, 0.0001, 75.2, 1000.0001, 8.5])); // 1.0 will be coerced to 1, like it or not
+      assert.equal(-1, warmUp.intMax([1.01, 2.5, 11.54, -1, 0.0001, 75.2, 1000.0001, 8.5]));
+      assert.equal(-1, warmUp.intMax([-10, -111, -898, -2, -1, -99, -19]));
+      assert.equal(Number.MAX_SAFE_INTEGER, warmUp.intMax([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 11, 11, 11, 11, 11, 11, 11.2, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11.2, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11.2, 11, 11, 11, 11, 11, 11, 11, 1.0, 2.5, 11.54, -1, 0, 0.000, 75.2, 1000.0001, 8.5, 1.0, 2.5, 11.54, -1, 0, 0.000, 75.2, 1000.0001, 8.5, 1.0, 2.5, 11.54, -1, 0, 0.000, 75.2, 1000.0001, 8.5, 1, 4, 77, 9, 100, 82, -1, Number.MAX_SAFE_INTEGER, 20, 11, 200, 444, 21, 19, 777777, 666, 13, 22, 5454, 4542, 542399, 770, 12999, 13223, 8, 9, 10, 11, 11, 11, 1.0, 2.5, 11.54, -1, 0, 0.000, 4232, 43234, 1111, 12545, 43234, 88898989, 424, 423432, 549889, 899898, 1010, 213, 32323, 3232, 23, 435345, 5448, 888, 88, 884784, 99493, 6666, 3435, 2222, 2323232323, 88989, 57473783, 21218, 785, 6565, 333, 32324234, 42, 12313, 45353453534534, 34888, 558, 884, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1000000000001, 1000000000002, 100000000001, 9, 1091231, 4324, 10.1, 10.2, 10.3]));
+      assert.equal(1, warmUp.intMax(['1', '2', '3', 1, 'four', 'niner']));
+    });
+    it('Should throw if passed an array containing no valid integers', function() {
+      assert.throws(function() {
+        warmUp.intMax([]);
+      }, TypeError);
+      assert.throws(function() {
+        warmUp.intMax(['1', '2', '3'])
+      }, TypeError);
+      assert.throws(function() {
+        warmUp.intMax(['one', 'two', 'three'])
+      }, TypeError);
+      assert.throws(function() {
+        warmUp.intMax([[1], [2], [3]])
+      }, TypeError);
+      assert.throws(function() {
+        warmUp.intMax([1.0001, 1.002, 1.003])
+      }, TypeError);
+      assert.throws(function() {
+        warmUp.intMax([{1:1, 2:2, 3:3}, {4:4}, {5:5, 6:6, 7:7, 8:8}])
+      }, TypeError);
+    });
+    it('Should throw if passed an Object that is not an array', function () {
+      for (value of notArrays) {
+        assert.throws(function() {
+          warmUp.intMax(value);
         }, TypeError);
       }
     });
