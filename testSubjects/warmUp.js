@@ -163,15 +163,9 @@ warmUp.intMax = function(array) {
   let returnValue;
   let max = Number.MIN_SAFE_INTEGER;
   let uniques = new Set(array);
-  let isFloat = function(num) {
-    let string = `${num}`;
-
-    return string.includes('.');
-  };
 
   for (value of uniques) {    
     if (Number.isNaN(value)) continue;
-    if (isFloat(value)) continue;
     if (!Number.isInteger(value)) continue;
 
     if (value >= max) {
