@@ -156,7 +156,6 @@ warmUp.mixStart = function(text) {
   return testResult;
 }
 
-
 warmUp.intMax = function(array) {
   if (!Array.isArray(array)) throw TypeError('Argument must be an array');
 
@@ -165,8 +164,7 @@ warmUp.intMax = function(array) {
   let uniques = new Set(array);
 
   for (value of uniques) {    
-    if (Number.isNaN(value)) continue;
-    if (!Number.isInteger(value)) continue;
+    if (Number.isNaN(value) || !Number.isInteger(value)) continue;
 
     if (value >= max) {
       max = value;
