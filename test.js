@@ -525,4 +525,97 @@ describe('warmUp Problem Set', function () {
       }
     });
   });
+
+  describe('16) Close 10', function() {
+    it('Should return 0 if both arguments are equidistant from 10', function() {
+      assert.equal(0, warmUp.close10(10, 10));
+      assert.equal(0, warmUp.close10(11, 9));
+      assert.equal(0, warmUp.close10(5, 15));
+      assert.equal(0, warmUp.close10(0, 0));
+      assert.equal(0, warmUp.close10(210, -190));
+      assert.equal(0, warmUp.close10(-1, -1));
+    });
+    it('Should return the argument that is closer to 10', function() {
+      assert.equal(10, warmUp.close10(10, 1000));
+      assert.equal(0, warmUp.close10(100, 0));
+      assert.equal(5, warmUp.close10(5, 16));
+      assert.equal(-1, warmUp.close10(-1, -20));
+      assert.equal(210, warmUp.close10(210, -210));
+    });
+    it('Should throw if first or second argument is NaN or not of type Number', function() {
+      for (firstValue of notNumbers) {
+        for (secondValue of notNumbers) {
+          assert.throws(function () {
+            warmUp.close10(firstValue, secondValue);
+          }, TypeError);
+        }
+      }
+    });
+  });
+
+  describe('17) String E', function() {
+    it('Should return true if argument contains 1 to 3 letter Es', function() {
+      assert.equal(true, warmUp.stringE('Well'));
+      assert.equal(true, warmUp.stringE('reel'));
+      assert.equal(true, warmUp.stringE('effective'));
+      assert.equal(true, warmUp.stringE('Eel'));
+      assert.equal(true, warmUp.stringE('screEched'));
+      assert.equal(true, warmUp.stringE('e'));
+      assert.equal(true, warmUp.stringE('hello world'));
+      assert.equal(true, warmUp.stringE('E'));
+      assert.equal(true, warmUp.stringE('Greenery'));
+      assert.equal(true, warmUp.stringE('Eugene'));
+      assert.equal(true, warmUp.stringE('heelies'));
+      assert.equal(true, warmUp.stringE('eieio'));
+    });
+    it('Should return false if argument contains 0 letter Es, or more than 3', function() {
+      assert.equal(false, warmUp.stringE(''));
+      assert.equal(false, warmUp.stringE(' '));
+      assert.equal(false, warmUp.stringE('5'));
+      assert.equal(false, warmUp.stringE('ε'));
+      assert.equal(false, warmUp.stringE('Will'));
+      assert.equal(false, warmUp.stringE('rail'));
+      assert.equal(false, warmUp.stringE('Weewee'));
+      assert.equal(false, warmUp.stringE('Engineered'));
+      assert.equal(false, warmUp.stringE('electrically etched'));
+      assert.equal(false, warmUp.stringE('66eee77eee99'));
+      assert.equal(false, warmUp.stringE('EeEeE')); 
+      assert.equal(false, warmUp.stringE('eeeeeeeeeeee'));     
+      assert.equal(false, warmUp.stringE('heeheeheeheehee'));
+    });
+  });
+  it('Should throw if argument is not of type String', function () {
+    for (value of notStrings) {
+      assert.throws(function () {
+        warmUp.stringE(value);
+      }, TypeError);
+    }
+  });
+
+  describe('18) Last Digit', function() {
+    it('Should return true if both arguments have the same last digit', function() {
+      assert.equal(true, warmUp.lastDigit(21, 21));
+      assert.equal(true, warmUp.lastDigit(1, 21));
+      assert.equal(true, warmUp.lastDigit(430000000002, 502));
+      assert.equal(true, warmUp.lastDigit(-27, 937));
+      assert.equal(true, warmUp.lastDigit(-13, -933));
+      assert.equal(true, warmUp.lastDigit(6, 6));
+    })
+    it('Should return false if neither argument has the same last digit', function() {
+      assert.equal(false, warmUp.lastDigit(21, 20));
+      assert.equal(false, warmUp.lastDigit(1, 0));
+      assert.equal(false, warmUp.lastDigit(100213, 21312312));
+      assert.equal(false, warmUp.lastDigit(-33, -1));
+      assert.equal(false, warmUp.lastDigit(21, -1115));
+    })
+    it('Should throw if passed NaN or if either argument is not of type Number', function () {
+      for (firstValue of notNumbers) {
+        for (secondValue of notNumbers) {
+          assert.throws(function () {
+            warmUp.lastDigit(firstValue, secondValue);
+          }, TypeError);
+        }
+      }
+    });
+  });
 });

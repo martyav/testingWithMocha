@@ -58,8 +58,8 @@ warmUp.parrotTrouble = function(isTalking, hour) {
 warmUp.makes10 = function(firstNum, secondNum) {
   if (Number.isNaN(firstNum) || Number.isNaN(secondNum) || typeof firstNum !== 'number' || typeof secondNum !== 'number') throw new TypeError('Argument must be a number value');
 
-  let is10 = (num) => num === 10;
-  let sum = firstNum + secondNum;
+  const is10 = (num) => num === 10;
+  const sum = firstNum + secondNum;
 
   return is10(firstNum) || is10(secondNum) || is10(sum);
 }
@@ -67,7 +67,7 @@ warmUp.makes10 = function(firstNum, secondNum) {
 warmUp.nearHundred = function(number) {
   if (Number.isNaN(number) || typeof number !== 'number') throw new TypeError('Argument must be a number value');
 
-  let within10 = (num, closeTo) => Math.abs(num - closeTo) <= 10;
+  const within10 = (num, closeTo) => Math.abs(num - closeTo) <= 10;
 
   return within10(number, 100) || within10(number, 200);
 }
@@ -77,7 +77,7 @@ warmUp.posNeg = function(firstNum, secondNum, isNegative) {
   if (typeof isNegative !== 'boolean') throw TypeError('Argument must be Boolean');
   if (firstNum === 0 || secondNum === 0) throw RangeError('Argument must be positive or negative');
 
-  let lessThanZero = (num) => num < 0;
+  const lessThanZero = (num) => num < 0;
   let returnValue;
 
   if (isNegative) returnValue = lessThanZero(firstNum) && lessThanZero(secondNum);
@@ -137,10 +137,10 @@ warmUp.front3 = function(text) {
 warmUp.delDel = function(text) {
   if (typeof text !== 'string') throw TypeError('Argument must be String');
 
-  let delRegex = /(del)+/g;
-  let trimMiddleRegex = /\s{2,}/gu;
+  const delRegex = /(del)+/g;
+  const trimMiddleRegex = /\s{2,}/gu;
+  const testResult = delRegex.test(text);
   let returnString = text;
-  let testResult = delRegex.test(text);
 
   if (testResult) returnString = text.replace(delRegex, '').replace(trimMiddleRegex, ' ').trim();
 
@@ -161,7 +161,7 @@ warmUp.intMax = function(array) {
 
   let returnValue;
   let max = Number.MIN_SAFE_INTEGER;
-  let uniques = new Set(array);
+  const uniques = new Set(array);
 
   for (value of uniques) {    
     if (Number.isNaN(value) || !Number.isInteger(value)) continue;
@@ -176,5 +176,48 @@ warmUp.intMax = function(array) {
 
   return returnValue;
 }
+
+warmUp.close10 = function(firstNum, secondNum) {
+  if (Number.isNaN(firstNum) || Number.isNaN(secondNum) || typeof firstNum !== 'number' || typeof secondNum !== 'number') throw new TypeError('Argument must be a number value');
+
+  const firstAbs = Math.abs(firstNum - 10);
+  const secondAbs = Math.abs(secondNum - 10);
+
+  let returnValue = 0;
+
+  if (secondAbs > firstAbs) returnValue = firstNum;
+  if (firstAbs > secondAbs) returnValue = secondNum;
+
+  return returnValue;
+}
+
+warmUp.stringE = function(text) {
+  if (typeof text !== 'string') throw TypeError('Argument must be String');
+
+  const eRegex = /e/gi;
+  const eFound = text.match(eRegex);
+  const eCount = eFound ? eFound.length : 0;
+
+  return eCount > 0 && eCount < 4;
+}
+
+warmUp.lastDigit = function(firstNum, secondNum) {
+  if (Number.isNaN(firstNum) || Number.isNaN(secondNum) || typeof firstNum !== 'number' || typeof secondNum !== 'number') throw new TypeError('Argument must be a number value');
+
+  let findRightmostDigit = function(num) {
+    const absVal = Math.abs(num);
+
+    if (absVal < 10) return num;
+
+    const remainder = absVal % 10;
+
+    return findRightmostDigit(remainder);
+  }
+
+  const firstLast = findRightmostDigit(firstNum);
+  const secondLast = findRightmostDigit(secondNum);
+
+  return firstLast === secondLast;
+} 
 
 module.exports = warmUp;
