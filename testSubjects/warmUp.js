@@ -218,6 +218,17 @@ warmUp.lastDigit = function(firstNum, secondNum) {
   const secondLast = findRightmostDigit(secondNum);
 
   return firstLast === secondLast;
-} 
+}
+
+warmUp.everyNth = function(text, skip) {
+  if (typeof text !== 'string') throw TypeError('Argument must be String');
+  if (Number.isNaN(skip) || typeof skip !== 'number') throw new TypeError('Argument must be a number value');
+
+  let returnString = '';
+
+  for (let i = 0; i < text.length; skip + i) {
+    returnString = returnString.concat(text.slice(i));
+  }
+}
 
 module.exports = warmUp;

@@ -1,10 +1,36 @@
 let assert = require('assert');
-let warmUp = require('./testSubjects/warmUp.js')
+let warmUp = require('./testSubjects/warmUp.js');
+let archive = require('./testSubjects/interviewArchive.js');
 
 let truthyValues = ['true', 'false', '', 'word', '1', '0', 1, 0, [], [1], {}, { 'true': false }, NaN, undefined, null];
 let notNumbers = [NaN, '0', '1', '0.00', '1.00', 'I am not a number!', [], [1], {}, { 1: 2 }, true, false, null, undefined];
 let notStrings = [NaN, null, undefined, true, false, 1, 0, [], ['Hi'], {}, { 'One': '1' }]
-let notArrays = [NaN, null, undefined, true, false, 1, 1.00, '', 'Hi', {}, {1:1, 2:2, 3:3}];
+let notArrays = [NaN, null, undefined, true, false, 1, 1.00, '', 'Hi', {}, { 1: 1, 2: 2, 3: 3 }];
+
+describe('interview Archive Problem Set', function () {
+  describe('1) Smallest Positive Integer', function () {
+    it('Should return the smallest positive integer missing from the array', function() {
+      assert.equal(1, archive.smallestPostiveInteger([2]));
+      assert.equal(2, archive.smallestPostiveInteger([1]));
+      assert.equal(1, archive.smallestPostiveInteger([2,3,4,5]));
+      assert.equal(2, archive.smallestPostiveInteger([1,3,4,5]));
+      assert.equal(3, archive.smallestPostiveInteger([1,2,4,5]));
+      assert.equal(4, archive.smallestPostiveInteger([1,2,3,5]));
+      assert.equal(5, archive.smallestPostiveInteger([1,2,3,4]));
+      assert.equal(6, archive.smallestPostiveInteger([5,4,3,2,1]));
+      assert.equal(5, archive.smallestPostiveInteger([1,1,1,1,1,1,1,1,1,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4]));
+      assert.equal(5, archive.smallestPostiveInteger([3,2,4,1,2,21,12,4]));
+      assert.equal(12, archive.smallestPostiveInteger([-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20]));
+      assert.equal(10, archive.smallestPostiveInteger([-5,1,4,0,1,2,-10,100,-1000,-10000,0,0.0,8,8,8,5,6,5,7,3,5,-5,9]));
+    });
+    it('Should return positive 1 if all values in the array are 0 or negative, or if passed the empty array', function() {
+      assert.equal(1, archive.smallestPostiveInteger([-1,-2,-3]));
+      assert.equal(1, archive.smallestPostiveInteger([0,-1,-2,-3]));
+      assert.equal(1, archive.smallestPostiveInteger([0,0,0]));
+      assert.equal(1, archive.smallestPostiveInteger([]));
+    });
+  });
+});
 
 describe('warmUp Problem Set', function () {
   describe('1) Fizz Buzz', function () {
@@ -358,8 +384,8 @@ describe('warmUp Problem Set', function () {
       }
     });
   });
-  describe('11) Front Back', function() {
-    it('Should return a string with the first and last characters of the argument transposed', function() {
+  describe('11) Front Back', function () {
+    it('Should return a string with the first and last characters of the argument transposed', function () {
       assert.equal('cba', warmUp.frontBack('abc'));
       assert.equal('dello worlh', warmUp.frontBack('hello world'));
       assert.equal('aH', warmUp.frontBack('Ha'));
@@ -368,8 +394,8 @@ describe('warmUp Problem Set', function () {
       assert.equal('   ', warmUp.frontBack('   '));
       assert.equal('\t \n', warmUp.frontBack('\n \t'));
     });
-    it('Should throw if passed the empty string', function() {
-      assert.throws(function() {
+    it('Should throw if passed the empty string', function () {
+      assert.throws(function () {
         warmUp.frontBack('');
       }, RangeError);
     });
@@ -382,8 +408,8 @@ describe('warmUp Problem Set', function () {
     });
   });
 
-  describe('12) Front 3', function() {
-    it('Should return a string composed of the first 3 characters in the argument, repeated 3 times, if the length of the argument is 3 or greater', function() {
+  describe('12) Front 3', function () {
+    it('Should return a string composed of the first 3 characters in the argument, repeated 3 times, if the length of the argument is 3 or greater', function () {
       assert.equal('HooHooHoo', warmUp.front3('Hoot'));
       assert.equal('HooHooHoo', warmUp.front3('Hoo'));
       assert.equal('HooHooHoo', warmUp.front3('Hootie and the Blowfish'));
@@ -391,7 +417,7 @@ describe('warmUp Problem Set', function () {
       assert.equal('123123123', warmUp.front3('1234567890'));
       assert.equal('         ', warmUp.front3('   '));
     });
-    it('Should return a string composed of the argument, repeated 3 times, if the length of the argument is less than 3', function() {
+    it('Should return a string composed of the argument, repeated 3 times, if the length of the argument is less than 3', function () {
       assert.equal('HaHaHa', warmUp.front3('Ha'));
       assert.equal('666', warmUp.front3('6'));
       assert.equal('gogogo', warmUp.front3('go'));
@@ -409,8 +435,8 @@ describe('warmUp Problem Set', function () {
     });
   });
 
-  describe('13) Del Del', function() {
-    it('Should return a string composed of the argument, minus any occurences of the substring del, and any extra whitespace surrounding the substring del', function() {
+  describe('13) Del Del', function () {
+    it('Should return a string composed of the argument, minus any occurences of the substring del, and any extra whitespace surrounding the substring del', function () {
       assert.equal('abcfg', warmUp.delDel('abcdelfg'));
       assert.equal('Hello world.', warmUp.delDel('Hello del world.'));
       assert.equal('', warmUp.delDel('del'));
@@ -437,8 +463,8 @@ describe('warmUp Problem Set', function () {
     });
   });
 
-  describe('14) Mix Start', function() {
-    it('Should return true if the argument starts with the substring *ix, where the * stands for any character', function() {
+  describe('14) Mix Start', function () {
+    it('Should return true if the argument starts with the substring *ix, where the * stands for any character', function () {
       assert.equal(true, warmUp.mixStart('mix'));
       assert.equal(true, warmUp.mixStart('Mix'));
       assert.equal(true, warmUp.mixStart('MIX'));
@@ -452,7 +478,7 @@ describe('warmUp Problem Set', function () {
       assert.equal(true, warmUp.mixStart('mixture'));
       assert.equal(true, warmUp.mixStart('mix it up'));
     });
-    it('Should return false if the argument does not start with the substring *ix, where the * stands for any character', function() {
+    it('Should return false if the argument does not start with the substring *ix, where the * stands for any character', function () {
       assert.equal(false, warmUp.mixStart('mox'));
       assert.equal(false, warmUp.mixStart('Mox'));
       assert.equal(false, warmUp.mixStart('bux'));
@@ -480,8 +506,8 @@ describe('warmUp Problem Set', function () {
     });
   });
 
-  describe('15) Int Max', function() {
-    it('Should return the largest integer in a non-empty array which contains at least one integer', function() {
+  describe('15) Int Max', function () {
+    it('Should return the largest integer in a non-empty array which contains at least one integer', function () {
       assert.equal(100, warmUp.intMax([100]));
       assert.equal(-100, warmUp.intMax([-100]));
       assert.equal(0, warmUp.intMax([0]));
@@ -497,37 +523,37 @@ describe('warmUp Problem Set', function () {
       assert.equal(Number.MAX_SAFE_INTEGER, warmUp.intMax([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 11, 11, 11, 11, 11, 11, 11.2, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11.2, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11.2, 11, 11, 11, 11, 11, 11, 11, 1.0, 2.5, 11.54, -1, 0, 0.000, 75.2, 1000.0001, 8.5, 1.0, 2.5, 11.54, -1, 0, 0.000, 75.2, 1000.0001, 8.5, 1.0, 2.5, 11.54, -1, 0, 0.000, 75.2, 1000.0001, 8.5, 1, 4, 77, 9, 100, 82, -1, Number.MAX_SAFE_INTEGER, 20, 11, 200, 444, 21, 19, 777777, 666, 13, 22, 5454, 4542, 542399, 770, 12999, 13223, 8, 9, 10, 11, 11, 11, 1.0, 2.5, 11.54, -1, 0, 0.000, 4232, 43234, 1111, 12545, 43234, 88898989, 424, 423432, 549889, 899898, 1010, 213, 32323, 3232, 23, 435345, 5448, 888, 88, 884784, 99493, 6666, 3435, 2222, 2323232323, 88989, 57473783, 21218, 785, 6565, 333, 32324234, 42, 12313, 45353453534534, 34888, 558, 884, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1000000000001, 1000000000002, 100000000001, 9, 1091231, 4324, 10.1, 10.2, 10.3]));
       assert.equal(1, warmUp.intMax(['1', '2', '3', 1, 'four', 'niner']));
     });
-    it('Should throw if passed an array containing no valid integers', function() {
-      assert.throws(function() {
+    it('Should throw if passed an array containing no valid integers', function () {
+      assert.throws(function () {
         warmUp.intMax([]);
       }, TypeError);
-      assert.throws(function() {
+      assert.throws(function () {
         warmUp.intMax(['1', '2', '3'])
       }, TypeError);
-      assert.throws(function() {
+      assert.throws(function () {
         warmUp.intMax(['one', 'two', 'three'])
       }, TypeError);
-      assert.throws(function() {
+      assert.throws(function () {
         warmUp.intMax([[1], [2], [3]])
       }, TypeError);
-      assert.throws(function() {
+      assert.throws(function () {
         warmUp.intMax([1.0001, 1.002, 1.003])
       }, TypeError);
-      assert.throws(function() {
-        warmUp.intMax([{1:1, 2:2, 3:3}, {4:4}, {5:5, 6:6, 7:7, 8:8}])
+      assert.throws(function () {
+        warmUp.intMax([{ 1: 1, 2: 2, 3: 3 }, { 4: 4 }, { 5: 5, 6: 6, 7: 7, 8: 8 }])
       }, TypeError);
     });
     it('Should throw if passed an Object that is not an array', function () {
       for (value of notArrays) {
-        assert.throws(function() {
+        assert.throws(function () {
           warmUp.intMax(value);
         }, TypeError);
       }
     });
   });
 
-  describe('16) Close 10', function() {
-    it('Should return 0 if both arguments are equidistant from 10', function() {
+  describe('16) Close 10', function () {
+    it('Should return 0 if both arguments are equidistant from 10', function () {
       assert.equal(0, warmUp.close10(10, 10));
       assert.equal(0, warmUp.close10(11, 9));
       assert.equal(0, warmUp.close10(5, 15));
@@ -535,14 +561,14 @@ describe('warmUp Problem Set', function () {
       assert.equal(0, warmUp.close10(210, -190));
       assert.equal(0, warmUp.close10(-1, -1));
     });
-    it('Should return the argument that is closer to 10', function() {
+    it('Should return the argument that is closer to 10', function () {
       assert.equal(10, warmUp.close10(10, 1000));
       assert.equal(0, warmUp.close10(100, 0));
       assert.equal(5, warmUp.close10(5, 16));
       assert.equal(-1, warmUp.close10(-1, -20));
       assert.equal(210, warmUp.close10(210, -210));
     });
-    it('Should throw if first or second argument is NaN or not of type Number', function() {
+    it('Should throw if first or second argument is NaN or not of type Number', function () {
       for (firstValue of notNumbers) {
         for (secondValue of notNumbers) {
           assert.throws(function () {
@@ -553,8 +579,8 @@ describe('warmUp Problem Set', function () {
     });
   });
 
-  describe('17) String E', function() {
-    it('Should return true if argument contains 1 to 3 letter Es', function() {
+  describe('17) String E', function () {
+    it('Should return true if argument contains 1 to 3 letter Es', function () {
       assert.equal(true, warmUp.stringE('Well'));
       assert.equal(true, warmUp.stringE('reel'));
       assert.equal(true, warmUp.stringE('effective'));
@@ -568,7 +594,7 @@ describe('warmUp Problem Set', function () {
       assert.equal(true, warmUp.stringE('heelies'));
       assert.equal(true, warmUp.stringE('eieio'));
     });
-    it('Should return false if argument contains 0 letter Es, or more than 3', function() {
+    it('Should return false if argument contains 0 letter Es, or more than 3', function () {
       assert.equal(false, warmUp.stringE(''));
       assert.equal(false, warmUp.stringE(' '));
       assert.equal(false, warmUp.stringE('5'));
@@ -579,8 +605,8 @@ describe('warmUp Problem Set', function () {
       assert.equal(false, warmUp.stringE('Engineered'));
       assert.equal(false, warmUp.stringE('electrically etched'));
       assert.equal(false, warmUp.stringE('66eee77eee99'));
-      assert.equal(false, warmUp.stringE('EeEeE')); 
-      assert.equal(false, warmUp.stringE('eeeeeeeeeeee'));     
+      assert.equal(false, warmUp.stringE('EeEeE'));
+      assert.equal(false, warmUp.stringE('eeeeeeeeeeee'));
       assert.equal(false, warmUp.stringE('heeheeheeheehee'));
     });
   });
@@ -592,8 +618,8 @@ describe('warmUp Problem Set', function () {
     }
   });
 
-  describe('18) Last Digit', function() {
-    it('Should return true if both arguments have the same last digit', function() {
+  describe('18) Last Digit', function () {
+    it('Should return true if both arguments have the same last digit', function () {
       assert.equal(true, warmUp.lastDigit(21, 21));
       assert.equal(true, warmUp.lastDigit(1, 21));
       assert.equal(true, warmUp.lastDigit(430000000002, 502));
@@ -601,7 +627,7 @@ describe('warmUp Problem Set', function () {
       assert.equal(true, warmUp.lastDigit(-13, -933));
       assert.equal(true, warmUp.lastDigit(6, 6));
     })
-    it('Should return false if neither argument has the same last digit', function() {
+    it('Should return false if the two arguments do not have the same last digit', function () {
       assert.equal(false, warmUp.lastDigit(21, 20));
       assert.equal(false, warmUp.lastDigit(1, 0));
       assert.equal(false, warmUp.lastDigit(100213, 21312312));
