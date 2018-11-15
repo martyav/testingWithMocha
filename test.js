@@ -7,7 +7,7 @@ let notNumbers = [NaN, '0', '1', '0.00', '1.00', 'I am not a number!', [], [1], 
 let notStrings = [NaN, null, undefined, true, false, 1, 0, [], ['Hi'], {}, { 'One': '1' }]
 let notArrays = [NaN, null, undefined, true, false, 1, 1.00, '', 'Hi', {}, { 1: 1, 2: 2, 3: 3 }];
 
-describe('interview Archive Problem Set', function () {
+describe('interviewArchive Problem Set', function () {
   describe('1) Smallest Positive Integer', function () {
     it('Should return the smallest positive integer missing from the array', function() {
       assert.equal(1, archive.smallestPostiveInteger([2]));
@@ -18,9 +18,9 @@ describe('interview Archive Problem Set', function () {
       assert.equal(4, archive.smallestPostiveInteger([1,2,3,5]));
       assert.equal(5, archive.smallestPostiveInteger([1,2,3,4]));
       assert.equal(6, archive.smallestPostiveInteger([5,4,3,2,1]));
-      assert.equal(5, archive.smallestPostiveInteger([1,1,1,1,1,1,1,1,1,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4]));
-      assert.equal(5, archive.smallestPostiveInteger([3,2,4,1,2,21,12,4]));
-      assert.equal(12, archive.smallestPostiveInteger([-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20]));
+      assert.equal(7, archive.smallestPostiveInteger([1,1,1,1,1,1,1,1,1,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4,5,5,5,5,5,6,6,6,666]));
+      assert.equal(8, archive.smallestPostiveInteger([3,2,6,4,7,1,2,21,5,12,4]));
+      assert.equal(9, archive.smallestPostiveInteger([-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,10,11,13,14,15,16,17,18,19,20]));
       assert.equal(10, archive.smallestPostiveInteger([-5,1,4,0,1,2,-10,100,-1000,-10000,0,0.0,8,8,8,5,6,5,7,3,5,-5,9]));
     });
     it('Should return positive 1 if all values in the array are 0 or negative, or if passed the empty array', function() {
@@ -609,13 +609,13 @@ describe('warmUp Problem Set', function () {
       assert.equal(false, warmUp.stringE('eeeeeeeeeeee'));
       assert.equal(false, warmUp.stringE('heeheeheeheehee'));
     });
-  });
-  it('Should throw if argument is not of type String', function () {
-    for (value of notStrings) {
-      assert.throws(function () {
-        warmUp.stringE(value);
-      }, TypeError);
-    }
+    it('Should throw if argument is not of type String', function () {
+      for (value of notStrings) {
+        assert.throws(function () {
+          warmUp.stringE(value);
+        }, TypeError);
+      }
+    });
   });
 
   describe('18) Last Digit', function () {
