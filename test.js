@@ -142,6 +142,29 @@ describe('myLinkedList Class Implementation', function() {
       assert.strictEqual(undefined, linkedList.find(''));
       assert.strictEqual(undefined, linkedList.find('3'));
     });
+    it('Should remove nodes based on value', function() {
+      linkedList.remove(2);
+
+      assert.strictEqual(0, linkedList.head.value);
+      assert.strictEqual(1, linkedList.head.next.value);
+      assert.strictEqual(3, linkedList.head.next.next.value);
+      assert.strictEqual(4, linkedList.head.next.next.next.value);
+
+      linkedList.remove(3);
+
+      assert.strictEqual(0, linkedList.head.value);
+      assert.strictEqual(1, linkedList.head.next.value);
+      assert.strictEqual(4, linkedList.head.next.next.value);
+
+      linkedList.remove(1);
+
+      assert.strictEqual(0, linkedList.head.value);
+      assert.strictEqual(4, linkedList.head.next.value);
+
+      linkedList.remove(0);
+
+      assert.strictEqual(4, linkedList.head.value);
+    });
   });
 });
 

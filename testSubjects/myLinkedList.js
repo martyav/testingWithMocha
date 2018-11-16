@@ -39,7 +39,6 @@ class MyLinkedList {
     let current = this.head;
 
     while (current.next) {
-      console.log(current);
       if (value === current.value) return true; 
 
       current = current.next
